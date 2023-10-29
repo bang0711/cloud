@@ -26,11 +26,17 @@ function UploadForm({}: Props) {
       data.set("file", file);
       data.set("name", name);
       data.set("extension", extension);
-      const res = await fetch("/api/upload", {
-        method: "POST",
-        body: data,
-      });
+      const res = await fetch(
+        "https://cloud-nine-ruddy.vercel.app/api/upload",
+        {
+          method: "POST",
+          body: data,
+          mode: "no-cors",
+        }
+      );
       if (!res.ok) throw new Error("something went wrong");
+      const url = await res.json();
+      console.log(url);
     } catch (error) {
       console.log(error);
     }
