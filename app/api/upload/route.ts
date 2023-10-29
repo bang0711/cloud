@@ -24,7 +24,7 @@ export async function POST(req: Request) {
   const bytes = await data.arrayBuffer();
   const buffer = Buffer.from(bytes);
   const imageName = v4();
-  const path = join("/", "/uploads", `${imageName}.${extension}`);
+  const path = join("/", "/public/uploads", `${imageName}.${extension}`);
   await writeFile(path, buffer);
   console.log(`open ${path}`);
   return NextResponse.json(path);
