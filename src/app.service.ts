@@ -11,26 +11,22 @@ export class AppService {
   }
   async uploadFile(file: UploadedFileDto) {
     const extension = extname(file.originalname); // Get the file extension
-
+    const currentDate = new Date().getTime();
     const newFile = await this.prisma.file.create({
       data: {
-        name: file.originalname,
+        name: `${currentDate.toString()}${extension}`,
         type: file.mimetype,
         content: file.buffer,
       },
     });
-
-    console.log(extension);
-
-    const fileUrl = `${process.env.BASE_URL}${newFile.id}${extension}`;
-    return { fileUrl };
+    const fileUrl = `${process.env.BASE_URL}${newFile.name}`;
+    return { fileId: newFile.id, fileUrl };
   }
 
-  async findById(id: string) {
-    console.log(id);
+  async findByName(name: string) {
     const file = await this.prisma.file.findUnique({
       where: {
-        id,
+        name,
       },
     });
     return file;

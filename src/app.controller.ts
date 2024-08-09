@@ -25,12 +25,12 @@ export class AppController {
   uploadFile(@UploadedFile() file: UploadedFileDto) {
     return this.appService.uploadFile(file);
   }
-  @Get(":id")
-  async findById(
-    @Param("id") id: string,
+  @Get(":name")
+  async findByName(
+    @Param("name") name: string,
     @Res({ passthrough: true }) res: Response,
   ) {
-    const file = await this.appService.findById(id);
+    const file = await this.appService.findByName(name);
     if (!file) {
       return { message: "File not found", statusCode: 404 };
     }
