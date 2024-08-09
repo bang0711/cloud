@@ -7,7 +7,7 @@ import { extname } from "path";
 export class AppService {
   constructor(private readonly prisma: PrismaService) {}
   async getHello() {
-    return await this.prisma.file.findMany();
+    return "hello";
   }
   async uploadFile(file: UploadedFileDto) {
     const extension = extname(file.originalname); // Get the file extension
